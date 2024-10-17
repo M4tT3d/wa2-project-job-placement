@@ -1,0 +1,40 @@
+####################
+###              ###
+###   MESSAGES   ###
+###              ###
+####################
+
+###
+GET http://localhost:8080/api/messages?filterPriority=LOW
+
+###
+POST http://localhost:8080/api/messages
+Content-Type: application/json
+
+{
+  "sender": "antonio@polito.it",
+  "subject": "Oggetto del messaggio",
+  "body": "Corpo del messaggio",
+  "priority": "HIG",
+  "comment": "Questo è un commento",
+  "channel": "EMAIL"
+}
+
+###
+GET http://localhost:8080/api/messages/8
+
+###
+POST http://localhost:8080/api/messages/2
+Content-Type: application/json
+
+{
+  "transition": "READMESSAGE",
+  "comment": "Passa in Read"
+}
+
+###
+GET http://localhost:8080/api/messages/10/history
+
+
+###
+PUT http://localhost:8080/api/messages/5/priority

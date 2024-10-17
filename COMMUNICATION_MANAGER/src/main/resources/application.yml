@@ -1,0 +1,33 @@
+spring:
+    application:
+        name: communication-manager
+    autoconfigure:
+        exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    profiles:
+        active: dev
+    security:
+        oauth2:
+            resource server:
+                jwt:
+                    issuer-uri: http://localhost:9090/realms/IAM
+server:
+    port: 8081
+gmail-account:
+    application_name: "Web client 1"
+gmail:
+    client-id: ${google_client_id}
+    client-secret: ${gogole_client_secret}
+    refresh-token: ${google_refresh_token}
+camel:
+    component:
+        google-mail-stream:
+            application-name: ${gmail.application_name}
+            client-id: ${gmail.client-id}
+            client-secret: ${gmail.client-secret}
+            refresh-token: ${gmail.refresh-token}
+        google-mail:
+            application-name: ${gmail.application_name}
+            client-id: ${gmail.client-id}
+            client-secret: ${gmail.client-secret}
+            refresh-token: ${gmail.refresh-token}
+senderMail: "webapp2group3@gmail.com"

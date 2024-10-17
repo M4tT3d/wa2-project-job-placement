@@ -1,0 +1,32 @@
+services:
+  springapp:
+    container_name: analytics
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - 'SPRING_DATASOURCE_URL=mongodb://root:secret@mongodb:27017/mydatabase'
+      - 'SPRING_PROFILES_ACTIVE=prod'
+    ports:
+      - "8087:8087"
+    networks:
+      - kfk-net
+    depends_on:
+      - mongodb
+  mongodb:
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB_DATABASE=mydatabase'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+      - 'MONGO_INITDB_ROOT_USERNAME=root'
+    volumes:
+      - mongo_analytics_prod:/var/lib/mongodb/data
+    networks:
+      - kfk-net
+volumes:
+  mongo_analytics_prod:
+networks:
+  kfk-net:
+    name: kfk-net
+    external: true
+    driver: bridge

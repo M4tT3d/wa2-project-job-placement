@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: crm
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      client-id: producer
+  profiles:
+    active: dev
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/IAM
+server:
+  port: 8085
+

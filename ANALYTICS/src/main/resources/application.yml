@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: analytics
+  profiles:
+    default: dev
+server:
+  port: 8087

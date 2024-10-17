@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: IAM
+  cloud:
+    gateway:
+      mvc:
+        http-client:
+          type: autodetect
+        routes:
+          - id: documentstore
+            uri: http://localhost:8084
+            predicates:
+              - Path=/documentstore/**
+            filters:
+              - StripPrefix=1
+              - TokenRelay
+          - id: crm
+            uri: http://localhost:8085
+            predicates:
+              - Path=/crm/**
+            filters:
+              - StripPrefix=1
+              - TokenRelay
+          - id: communicationmanager
+            uri: http://localhost:8081
+            predicates:
+              - Path=/communicationmanager/**
+            filters:
+              - StripPrefix=1
+              - TokenRelay
+          - id: ui
+            uri: http://localhost:5173
+            predicates:
+              - Path=/ui/**
+          - id: home
+            uri: http://localhost:8080
+            predicates:
+              - Path=/
+            filters:
+              - RedirectTo=301,http://localhost:8080/ui
+          - id: analytics
+            uri: http://localhost:8087
+            predicates:
+              - Path=/analytics/**
+            filters:
+              - StripPrefix=1
+              - TokenRelay
+  servlet:
+    multipart.max-file-size: 10MB
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:9090/realms/IAM
+        registration:
+          IAMclient:
+            provider: keycloak
+            client-id: IAMClient
+            client-secret: GLO9xdFNjUxIgNZHH2bnbDuhKeYcmJN8
+            scope:
+              - openid
+              - offline_access
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/IAMClient
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    auth:
+      enabled: false

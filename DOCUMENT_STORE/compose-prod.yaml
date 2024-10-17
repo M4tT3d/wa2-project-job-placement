@@ -1,0 +1,32 @@
+services:
+  springapp:
+    container_name: document_store
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_d_store/mydatabase'
+      - 'SPRING_DATASOURCE_USERNAME=myuser'
+      - 'SPRING_DATASOURCE_PASSWORD=secret'
+      - 'SPRING_PROFILES_ACTIVE=prod'
+    ports:
+      - "8084:8084"
+    networks:
+      - kfk-net
+  postgres_d_store:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    volumes:
+      - document_store_prod:/var/lib/postgresql/data
+    networks:
+      - kfk-net
+volumes:
+  document_store_prod:
+networks:
+  kfk-net:
+    name: kfk-net
+    external: true
+    driver: bridge

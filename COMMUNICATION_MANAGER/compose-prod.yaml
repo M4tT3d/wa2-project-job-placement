@@ -1,0 +1,14 @@
+services:
+  springapp:
+    container_name: communication_manager
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - 'SPRING_PROFILES_ACTIVE=prod'
+    networks:
+      - kfk-net
+networks:
+  kfk-net:
+    name: kfk-net
+    external: true

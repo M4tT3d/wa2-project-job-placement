@@ -1,0 +1,12 @@
+services:
+  fe:
+    container_name: fe
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - kfk-net
+networks:
+  kfk-net:
+    name: kfk-net
+    external: true
