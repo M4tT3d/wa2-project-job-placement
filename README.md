@@ -6,6 +6,26 @@
 - Matteo Tedesco (me, backend, frontend, deployment)
 - Margherita Lavena ([GitHub](https://github.com/margheritalavena) backend)
 
+## Description
+It allows customer to find the perfect freelancer for their projects. It is composed by a
+backend developed in Spring (Kotlin) and a frontend (Vite + React.js). The backend is
+organized in microservices and each one communicates with the others using Kafka. On
+the frontend part we use shadcdn/ui as components library, ZodJS for the form data
+validation and React Hook Form to manage form logic. We also utilize tanstack/query to
+mange cache and backend requests, and tanstack/table for tables pagination, filters and
+other functionalities.
+
+## Involved techologies
+- Kotlin
+- Typescript
+- Docker and Docker Compose
+- PostgreSQL
+- Keycloak
+- Tempo
+- Loki
+- Prometheus
+- Graphana
+
 ## Project structure
 * `./`: the main directory contains the documents readme
 * `COOMUNICATION_MANAGER/`: is the folder that contains the implementation of the COMMUNCATION_MANAGER microservice. 
